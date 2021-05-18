@@ -47,7 +47,7 @@ export class WebScraperComponent implements OnInit {
   pagesize: number = 100;
   search: string = "";
   submitted: boolean = false;
-  source!: Array<UrlSearchResult>;
+  source: Array<UrlSearchResult> = new Array<UrlSearchResult>();
 
   sorting: GuiSorting = {
     enabled: true,
@@ -56,6 +56,10 @@ export class WebScraperComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  get itemCount(): number {
+    return this.source.length;
   }
 
   onSubmit() {
