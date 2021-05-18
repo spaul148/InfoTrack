@@ -52,7 +52,7 @@ namespace InfoTrack.Business.Implementations
                 throw new NotImplementedException("The search engine only supports google search");
             }
 
-            var urlReferrerPatternToMatch = $"www.{toSearch}.com";
+            var urlReferrerPatternToMatch = toSearch.StartsWith("www.") ? toSearch :  $"www.{toSearch}.com";
             var encodedKeyWord = HttpUtility.UrlEncode(keyword);
             var query = new UrlSearchQuery() { Keyword = encodedKeyWord, PageSize = pageSize.Value };
             var htmlResult = await _urlSearchRepository.GetSearchResult(query);
