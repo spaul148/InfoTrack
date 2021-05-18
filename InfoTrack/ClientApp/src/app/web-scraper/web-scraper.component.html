@@ -1,0 +1,64 @@
+<p>Please enter Search keywords e.g. <b>"efiling integration"</b> and text to search for in the search results e.g.
+    <b>"infotrack".</b>
+    As a first match, the program will try to do a domain match (www.infotrack.com) in the urls of search results. If
+    not found then it will look for a match on the word (infotrack) in the heading. Then it will search
+    the
+    description of search results for a match. The "Found In" column will specify where the search text (infotrack in
+    this case) was
+    found.
+    The "Content" column shows the corresponding text for each match e.g. for a heading match it will show heading text,
+    for
+    a match in description it will show description text and for a url match it will show the heading as well.
+    <br>
+    Another example to try out would be using Search keywords <b>"cricket"</b> and text to search for <b>"india"</b>
+    within 100 results.
+</p>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-sm-2">
+            <form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="card">
+                    <div class="card-header font-weight-bold">
+                        Enter Search Criteria
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="txtKeyword">Search Keywords</label>
+                            <input type="text" class="form-control" id="txtKeyword" name="txtKeyword"
+                                [(ngModel)]="keyword" required #txtKeyword="ngModel"
+                                placeholder="Enter search keywords">
+                            <div [hidden]="txtKeyword.valid || txtKeyword.pristine" class="alert alert-danger">
+                                Keyword is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtSearch">Text to search for in search results</label>
+                            <input type="text" [(ngModel)]="search" class="form-control" id="txtSearch" name="txtSearch"
+                                required #txtSearch="ngModel" placeholder="Enter text to search for in search results">
+                            <div [hidden]="txtSearch.valid || txtSearch.pristine" class="alert alert-danger">
+                                Search is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtResultSize">Number of results to search in</label>
+                            <input type="number" [(ngModel)]="pagesize" required class="form-control"
+                                #txtResultSize="ngModel" id="txtResultSize" name="txtResultSize">
+                            <div [hidden]="txtResultSize.valid || txtResultSize.pristine" class="alert alert-danger">
+                                Search result set count is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <button class="btn btn-primary float-right" type="submit"
+                            [disabled]="!searchForm.form.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-10">
+            <label>Search Results :</label>
+            <gui-grid [columns]="columns" [source]="source" [sorting]="sorting" [rowHeight]="50" [loading]="submitted">
+            </gui-grid>
+        </div>
+    </div>
+</div>
